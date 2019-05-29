@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Music.back.Mapper.UserMapper">
+
+<!-- 根据用户名和密码查询用户ID -->
+<select id="getMPath" parameterType="int" resultType="Music">
+SELECT a.MName,a.MPath,b.AName FROM musics a
+		LEFT JOIN artist b ON a.Aid=b.id WHERE a.id=#{id}
+</select>
+</mapper>

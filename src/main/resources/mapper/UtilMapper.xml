@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Music.back.Mapper.UtilMapper">
+	<!-- 根据曲风获取曲风ID -->
+	<select id="getSidBySname" parameterType="String" resultType="Integer">
+		SELECT IFNULL((Select id From style where Sname='${Style}'),0);
+	</select>
+	<!-- 获取文件路径 -->
+	<select id="getFiles" parameterType="int" resultType="Music">
+	   select MPath,LPath,MIPath from musics where id=#{id}
+	</select>
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+

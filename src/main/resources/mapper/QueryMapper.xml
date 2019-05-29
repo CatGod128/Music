@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Music.back.Mapper.MusicMapper">
+	<!-- 自动提示框查询 -->
+	<select id="querytips" parameterType="String" resultType="String">
+		SELECT
+		MName FROM musics WHERE MName LIKE '%${tips}%'
+		UNION
+		SELECT AName FROM
+		artist WHERE AName LIKE '%${tips}%'
+	</select>
+	<!-- 根据歌名获取歌曲ID -->
+	<select id="queryMIdByName" parameterType="String" resultType="Integer">
+		SELECT IFNULL((Select id From musics where MName='${query}'),0);
+	</select>
+	<!-- 根据歌手名获取歌手ID -->
+	<select id="queryAIdByName" parameterType="String" resultType="Integer">
+		SELECT IFNULL((Select id From artist where AName='${query}'),0);
+	</select>
+	<!-- 根据歌曲ID获取歌曲 -->
+	<select id="queryMByMId" parameterType="int"
+		resultType="com.Music.Bean.MusicPojo">
+		SELECT a.id,a.MName,a.MPath,a.PCount,a.DCount,b.AName FROM musics a
+		LEFT JOIN artist b ON a.Aid=b.id WHERE a.id=${success}
+	</select>
+	<!-- 根据歌手ID获取歌曲 -->
+	<select id="queryMByAid" parameterType="int"
+		resultType="com.Music.Bean.MusicPojo">
+		SELECT a.id,a.MName,a.MPath,a.PCount,a.DCount,b.AName FROM musics a
+		LEFT JOIN artist b ON a.Aid=b.id WHERE b.id=${success2}
+	</select>
+	<!-- 根据歌手名获取歌手ID -->
+	<select id="getAidByAname" parameterType="String" resultType="Integer">
+		SELECT IFNULL((Select id From artist where AName='${Aname}'),0);
+	</select>
+	<!-- 根据歌曲ID获取歌曲风格 -->
+	<select id="getStyle" parameterType="int" resultType="String">
+	     select a.Sname from style a left join style_music b on a.id=b.s_id where b.m_id=#{id} 
+	</select>
+	<!-- 根据歌曲ID获取详细信息  -->
+	<select id="getMById" parameterType="int" resultType="Music">
+		select a.*,b.id,b.AName from musics a 
+		left join artist b on a.Aid=b.id where a.id=#{id}	
+	</select>
+	<!-- 获取歌手歌曲数量 -->
+	<select id="getNum" parameterType="int" resultType="int">
+	   select Count(*) from musics where Aid=(select Aid from musics where id=#{id})
+	</select>
+	<!-- 获取歌曲图片 -->
+	<select id="getMIPath" parameterType="int" resultType="String">
+	      select MIPath from musics where id=#{id}
+	</select>
+	<!-- 是否存在 -->
+	<select id="isExit" parameterType="String" resultType="int">
+	   select ifnull((select id from musics where MIPath=#{path}),-1)
+	</select>
+	<!-- 存储歌手部分信息 -->
+	<insert id="saveArtist" parameterType="Artist" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into artist(AName,AIPath)
+		value
+		(#{AName},#{AIPath})
+	</insert>
+	<!-- 存储歌曲信息 -->
+	<insert id="saveMusic" parameterType="Music" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into musics(Aid,MName,MPath,LPath,Size,MIPath,Beard)
+		VALUE
+		(#{Aid},#{MName},#{MPath},#{LPath},#{Size},#{MIPath},#{Beard})
+	</insert>
+	<!-- 存储曲风 -->
+	<insert id="saveStyle" parameterType="int">
+		insert into style_music (s_id,m_id) value(${Sid},${Mid})
+	</insert>
+	<!-- 获取曲风id -->
+	<select id="getSid" parameterType="String" resultType="int">
+	  select id from style where Sname=#{string};
+	</select>
+    <!-- 删除曲风 -->
+    <delete id="deleteStyle_M" parameterType="int">
+      delete from style_music where m_id=#{id}
+    </delete>
+    <!-- 删除歌曲 -->
+    <delete id="deleteMusic" parameterType="int">
+       delete from musics where id=#{id}
+    </delete>
+    <!-- 删除歌手 -->
+    <delete id="deleteArtist" parameterType="int">
+      delete from artist where id=(select Aid from musics where id=#{id} )
+    </delete>
+    <!-- 更新歌曲信息 -->
+    <update id="updateMusic" parameterType="Music" >
+     update musics set
+        LPath=#{LPath},
+        Mtime=#{Mtime},
+        MIPath=#{MIPath},
+        PCount=#{PCount},
+        DCount=#{DCount}
+        where id=#{id}
+    </update>
+    <!-- 更新曲风 -->
+   <update id="updateStyle" parameterType="List">
+        <foreach collection="list" item="style" index="index" open="" close="" separator=";">
+            UPDATE style_music
+            <set>
+                s_id=#{style.sid}
+            </set>
+            <where>
+                m_id = #{style.mid}
+            </where>
+        </foreach>
+    </update>
+</mapper>  
+
+
+
+
+
+
+
+
+
+
+
+

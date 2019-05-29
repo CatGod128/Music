@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Music.back.Mapper.ArtistMapper">
+<!-- 歌手列表 -->
+<select id="querylist" parameterType="String" resultType="Artist">
+ select * from artist 
+</select>
+<!-- 获取歌手 -->
+<select id="getInfo" parameterType="int" resultType="Artist">
+  select * from Artist where id=#{id}
+</select>
+<!-- 获取图片 -->
+<select id="getAIPath" parameterType="String" resultType="String">
+  	SELECT IFNULL((Select AIPath From artist where AName=#{aname}),0); 
+</select>
+<!-- 是否存在 -->
+<select id="isExit" parameterType="String" resultType="int">
+    select ifnull((select id from musics where MIPath=#{path}),-1)
+</select>
+<!-- 更新歌手 -->
+<update id="update" parameterType="Artist">
+  update artist set
+    AIPath=#{AIPath},
+    Birthday=#{Birthday},
+    Summary=#{Summary}
+    where AName=#{AName}
+</update>
+</mapper>
