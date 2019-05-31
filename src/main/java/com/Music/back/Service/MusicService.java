@@ -201,7 +201,7 @@ public class MusicService {
     	String LFPath;
     	String MIPath="UploadFile/MusicImgs";
     	String LPath="UploadFile/Lyrics";
-    	if(LFile.isEmpty()){
+    	if(LFile==null){
 			LFPath=null;
 		}else{
 			LFPath = FileUtils.savefile(LFile, LFile.getOriginalFilename(), LPath);

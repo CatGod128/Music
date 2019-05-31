@@ -18,4 +18,14 @@ public class UserLoginService {
 		int id=LoginM.UserLogin(log,pwd);
 		return id;
 	}
+
+	public String getNameById(int id) {
+		// TODO Auto-generated method stub
+		return LoginM.getNameById(id);
+	}
+
+	public int findPwd(String passwd ,String email) {
+		// TODO Auto-generated method stub
+		return LoginM.findPwd(passwd,email);
+	}
 }

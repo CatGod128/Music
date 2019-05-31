@@ -5,6 +5,14 @@
 
 <!-- 根据用户名和密码查询用户ID -->
 <select id="UserLogin" parameterType="String" resultType="int">
- SELECT IFNULL(( select id from user where userName=#{log} and passWord=#{pwd}),0);
+ SELECT IFNULL(( select id from user where email=#{log} and passWord=#{pwd}),0);
 </select>
+<!--  -->
+<select id="getNameById" parameterType="int" resultType="String">
+select userName from user where id=#{id}
+</select>
+<!-- 更新密码 -->
+<update id="findPwd" parameterType="String">
+update user set passWord=#{passwd} where email=#{email}
+</update>
 </mapper>

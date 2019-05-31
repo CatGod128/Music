@@ -125,8 +125,7 @@ public class UserController {
 		@ResponseBody
 		public Map Collect(int id){
 			String msg="添加收藏";
-			Map<String,Object> map=new HashMap();
-			
+			Map<String,Object> map=new HashMap();	
 			map.put("msg", msg);
 			return map;
 		}

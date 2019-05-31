@@ -39,14 +39,14 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
                 <p class="shadow_cover"></p>
                 <div class="user_login_inner">
                     <form class="signin_form" method="post" action="login"> 
-                        <input class="ipt" type="text" value="用户名" name="log"> 
+                        <input class="ipt" type="text" value="邮箱" name="log"> 
                         <input class="ipt" type="password" value="密码" name="pwd"> 
                         <input name="rememberme" id="rememberme" checked="checked" value="forever" type="checkbox">记住密码
                         <input class="login_btn" type="submit" name="submit" value="登录">
                     </form>
                     <p> 
-                        <a href=""><i class="sign"></i>注册</a> | 
-                        <a href=""><i class="lock"></i>忘记密码？</a>
+                        <a href="${pageContext.request.contextPath}/view/register.jsp"><i class="sign"></i>注册</a> | 
+                        <a href="view/findPwd.jsp"><i class="lock"></i>忘记密码？</a>
                     </p>
                 </div>
             </div>
@@ -85,7 +85,7 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
             <c:choose>
               <c:when test="${sessionScope.userName !=null}">
               <div class="user_photo"><a href=""><img src="${pageContext.request.contextPath}/static/images/user_photo.png" /></a></div>
-                <a class="nikeName" href="">${sessionScope.userName}</a>
+                <a class="nikeName" href="logout">${sessionScope.userName}</a>
                 <a class="user_info_list" href=""><span>8</span><span>歌单</span></a>
                 <a class="user_info_list" href=""><span>3</span><span>收听</span></a>
                 <a class="user_info_list" href=""><span>0</span><span>听众</span></a>

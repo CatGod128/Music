@@ -1,12 +1,30 @@
 package com.Music.Bean;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class User {
 
 	private int id;
 	private String userName;
 	private String passWord;
 	private String img;
+	private String phone;
 	private String email;
+	private Date registerdate;
+
+	public Date getRegisterdate() {
+		return registerdate;
+	}
+	public void setRegisterdate(Date registerdate) {
+		this.registerdate = registerdate;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String getImg() {
 		return img;
 	}
@@ -36,6 +54,11 @@ public class User {
 	}
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", img=" + img + ", phone="
+				+ phone + ", email=" + email + ", registerdate=" + registerdate + "]";
 	}
 	
 }
