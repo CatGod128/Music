@@ -72,7 +72,9 @@ public class RegistController {
 	    int success=RS.Regist(user);
 		if(success>0){
 			String subject="大风车音乐网";
-			String content="欢迎"+username+"来到大风车音乐网";
+			String content="<html>\n"+"<body>\n"
+	                + "<h3>hello world!测试发送html格式邮件</h3>\n"
+	                +"</body>\n"+"</html>";;
 			String toMail=email;
 			EmailUtil e=new EmailUtil();
 			e.sendMail(toMail, subject, content);

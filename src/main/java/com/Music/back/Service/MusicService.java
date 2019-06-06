@@ -205,6 +205,7 @@ public class MusicService {
 			LFPath=null;
 		}else{
 			LFPath = FileUtils.savefile(LFile, LFile.getOriginalFilename(), LPath);
+			music.setLPath(LFPath);
 		}
     	if(!MIFile.isEmpty()){   //不为空需要更新    	
     		String path=QM.getMIPath(id);
@@ -229,5 +230,13 @@ public class MusicService {
     	}
 		return 1;
 	}
+/**
+ *  获取曲风列表
+ * @return
+ */
+public List<String> getStylelist() {
+	// TODO Auto-generated method stub
+	return QM.getStylelist();
+}
 
 }

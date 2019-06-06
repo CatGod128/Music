@@ -11,8 +11,11 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.Music.Bean.ArtShowCommentsBean;
 import com.Music.Bean.Music;
 import com.Music.Bean.MusicPojo;
+import com.Music.Bean.User;
 import com.Music.Service.CommandService;
 import com.Music.Service.IndexService;
 import com.Music.Service.UserService;
@@ -88,8 +92,13 @@ public class UserController {
 		 * @param response
 		 * @throws UnsupportedEncodingException 
 		 */
-		@RequestMapping("download")
+		@RequestMapping("*/download")
 		public void download(int id ,HttpServletResponse response) throws UnsupportedEncodingException{
+			//增加该歌曲的下载数量
+			Random random = new Random();
+			// 0-99
+			int num = random.nextInt(100);
+			US.updateDcount(num,id);
 			Music music=US.getMPath(id);
 			// 1.获取要下载的文件的绝对路径		
 			String path=music.getMPath();
@@ -121,12 +130,116 @@ public class UserController {
 				e.printStackTrace();
 			} 
 		}
-		@RequestMapping("Collect")
+		/**
+		 * 添加收藏
+		 * @param id
+		 * @return
+		 */
+		@RequestMapping("*/Collect")
 		@ResponseBody
-		public Map Collect(int id){
-			String msg="添加收藏";
+		public String Collect(int id){
+			String msg="收藏成功 ";
 			Map<String,Object> map=new HashMap();	
 			map.put("msg", msg);
+			return msg;
+		}
+		/**
+		 * 个人中心
+		 * @param model
+		 * @param req
+		 * @return
+		 */
+		@RequestMapping("MyInfo")
+		public String MyMusic(Model model,HttpServletRequest req){
+			HttpSession session= req.getSession();
+			String name=(String) session.getAttribute("userName");
+			User user=US.getUserInfo(name);
+			model.addAttribute("user", user);
+			return "view/MyMusic";
+		}
+		/**
+		 * 获取资料
+		 * @param id
+		 * @param model
+		 * @return
+		 */
+		@RequestMapping("UserInfo")
+		public String UserInfo(int id,Model model){
+			User user =US.getUserInfoById(id);
+			model.addAttribute("userInfo",user);
+			return "view/MyInfo";
+		}
+		
+		@RequestMapping("uploadImg")
+		@ResponseBody
+		public Map UploadImg(HttpServletRequest req){
+			Map<String,Object> map=new HashMap();
+			String msg="头像上传成功";
+			int success=US.UploadImg(req);
+			System.out.println("收到了");
+			map.put("data", msg);
 			return map;
+		}
+		@RequestMapping("view/updatePwd")
+		@ResponseBody
+		public Map UpdatePwd(String password,HttpServletRequest req){
+			Map<String,Object> map=new HashMap();
+			int success=US.UpdatePwd(password,req);
+			String msg="密码修改成功";
+			map.put("data", msg);
+			return map;
+		}
+		/**
+		 * 获取收藏歌曲
+		 * @param req
+		 * @return
+		 */
+		@RequestMapping("view/CollectMusic")
+		@ResponseBody
+		public Map CollectMusic(HttpServletRequest req){
+			HttpSession session=req.getSession();
+			String name=(String) session.getAttribute("userName");
+			Map<String,Object> map=new HashMap();
+			int id=US.getIdByName(name);
+			List<MusicPojo> list=US.CollectMusic(id);
+			map.put("data", list);
+			return map;
+		}
+		/**
+		 * 取消收藏
+		 * @param id
+		 * @param req
+		 * @return
+		 */
+		@RequestMapping("view/deleteConllect")
+		@ResponseBody
+		public String deleteConllect(int id,HttpServletRequest req){
+		      Map<String,Object> map=new HashMap();
+		      int success=US.deleteConllect(id,req);
+		      String msg="成功";
+		      if(success<0){
+		    	  msg="失败";
+		      }
+		      return msg;
+		}
+		/**
+		 * 播放收藏歌曲
+		 * @param id
+		 * @param model
+		 * @param music
+		 * @return
+		 */
+		@RequestMapping("view/getInfo")
+		public String playConllect(int id,Model model,Music music){
+			return getInfo(id,model,music);
+		}
+		@RequestMapping("view/playAllConllect")
+		public String playAllConllect(HttpServletRequest req,Model model){
+			HttpSession session=req.getSession();
+			String name=(String) session.getAttribute("userName");
+			int id=US.getIdByName(name);
+			List<MusicPojo> list=US.CollectMusic(id);
+			model.addAttribute("musiclist",list);
+			return "view/PlayMusic";
 		}
 }

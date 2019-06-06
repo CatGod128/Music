@@ -77,6 +77,10 @@
 	<select id="getSid" parameterType="String" resultType="int">
 	  select id from style where Sname=#{string};
 	</select>
+	<!-- 获取曲风列表 -->
+	<select id="getStylelist" resultType="String">
+	  select Sname from style
+	</select>
     <!-- 删除曲风 -->
     <delete id="deleteStyle_M" parameterType="int">
       delete from style_music where m_id=#{id}

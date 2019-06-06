@@ -7,9 +7,142 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${music.MName} - ${music.aname}</title>
    <link rel="stylesheet" type="text/css" href="../static/css/audio.css">
+   <style type="text/css">
+#content{
+   width:100%;
+   height:591px;
+   position:relative;
+   background-color: rgba(0,0,0,.35);
+}
+#nav{
+   width:70%;
+   height:10%;
+   position:absolute;
+   margin-top:50px;
+   margin-left:50px;
+   border:1px solid #000;
+} 
+#info{
+ width:100%;
+ height:80%;
+ position:absolute;
+ margin-top:110px;
+}
+#info-left{
+width:50%;
+height:30px;
+float:left;
+margin-left:50px;
+}
+#lrc{
+ width:50%;
+ height:400px;
+ float:left;
+ margin-left:60px;
+ position: relative;
+ overflow: scroll;
+} 
+#lrctext{
+width: 50%;
+min-height: 50%;
+position: absolute;
+left: 0;
+top: 0;
+}
+#lrctext p {
+			width: 50%;
+			height: 60px;
+			text-align: center;
+			line-height: 60px;
+			margin: 0;
+			padding: 0;
+		}
+#lrc::-webkit-scrollbar {
+  width:4px;
+  height:4px;
+}
+#lrc::-webkit-scrollbar-thumb {
+  background-color:#d9d9d9;
+}
+#img{
+ width:40%;
+ height:400px;
+ float:left;
+ margin-left:50px;
+}
+#img img{
+   background:#000;
+   border:1px solid #fff;
+   border-width:5px 5px 5px 5px;
+   box-shadow:1px 1px 5px #333;
+   width:200px;
+   height:200px;
+   margin-top:50px;
+   margin-left:150px;
+}
+.downloadbtn{
+    display: block;
+    width: 230px;
+    height: 50px;
+    background: url(../static/img/downlaod_bg.png) no-repeat;
+    cursor: pointer;
+     margin-top:20px;
+    margin-left:146px;
+}
+.audioName {
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 24px;
+    font-style: normal;
+    color: #fff;
+    text-overflow: ellipsis;
+    max-width: 420px;
+}
+.singerN{
+    white-space: nowrap;
+    overflow: hidden;
+    font-style: normal;
+    color: #fff;
+    text-overflow: ellipsis;
+    max-width: 420px;
+}
+.singerName {
+    display: block;
+    width: 225px;
+    height: 24px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    color: #fff;
+}
+ul li{
+width: 300px;
+height: 60px;
+text-align: center;
+}
+   </style>
 </head>
 <body style="height: 588px;">
-
+<div id="content">
+  <div id="info">
+  <div id="info-left">
+  <span class="audioName">${music.MName}</span>
+ </div> 
+ <div class="singerN">
+  <span>歌手：</span><a href="" target="blank">${music.aname}</a>
+  </div>
+     <div id="lrc">
+   <ul id="text" style="transform: translateY(0px);"></ul>
+     </div>
+     <div id="img">
+      <img src="${music.MIPath}">
+      <a class="downloadbtn" href="*/download?id=${music.id}"></a>
+     </div>
+  </div>
+</div>
 	<div class="audio-box">
 		<div class="audio-container">
 			<div class="audio-cover" style="background-image: url(&quot;images/cover.jpg&quot;);"></div>
@@ -60,9 +193,9 @@
 $(function(){
 	var song = [
 		{
-			'cover' : '../static/images/user2.png',
-			'src' : 'http://jq22.qiniudn.com/the.mp3',
-			'title' : 'the xx'
+			'cover' : '${music.MIPath}',
+			'src' : '${music.MPath}',
+			'title' : '${music.aname} - ${music.MName}'
 		},
 		{
 			'cover' : 'images/cover2.jpg',
@@ -73,11 +206,6 @@ $(function(){
 			'cover' : 'images/cover5.jpg',
 			'src' : 'http://so1.111ttt.com:8282/2015/1/10m/31/103311642007.m4a?tflag=1494769515&pin=26fa27d88422f6adb1fbca3f0f17333e&ip=114.233.172.33#.mp3',
 			'title' : '再见 - 邓紫棋'
-		},
-		{
-			'cover' : '${music.MIPath}',
-			'src' : '${music.MPath}',
-			'title' : '${music.aname} - ${music.MName}'
 		},
 		{
 			'cover' : 'images/cover1.jpg',
@@ -105,16 +233,54 @@ $(function(){
 	audioFn.playAudio();
 
 	/* 选择歌单中索引为3的曲目(索引是从0开始的)，第二个参数true立即播放该曲目，false则不播放 */
-	audioFn.selectMenu(3,true);
-
-	/* 查看歌单中的曲目 */
-	console.log(audioFn.song);
+	audioFn.selectMenu(0,true);
 
 	/* 当前播放曲目的对象 */
 	console.log(audioFn.audio);
+	/**
+	 * 显示歌词文件
+	 */
+	  var audio = audioFn.audio;
+		var url = "${music.LPath}";
+		var geci = $.ajax({url:url,async:false}).responseText;
+		var geci1 = geci.split("\n");
+		var geci2=[];
+		for (var i = 0; i < geci1.length; i++) {
+			var arr = geci1[i].split("]");
+			geci2.push(arr[arr.length-1]);
+		}
+		for (var i = 0; i < geci2.length; i++) {
+			var p = document.createElement("li");
+			p.innerHTML = geci2[i];
+			$("#text")[0].appendChild(p);
+		}
+		
+		var reg = /\[\d*:\d*((\.|\:)\d*)*\]/g;
+		var musictime1 = [];
+		for (var i = 0; i < geci1.length; i++) {
+			var musictime = geci1[i].match(reg);
+			musictime1.push(musictime);
+		}
+		var time = [];
+		for (var i = 0; i < musictime1.length; i++) {
+			var fen = String(musictime1[i]).substr(1,2);
+			var miao = String(musictime1[i]).substr(4,2);
+			time.push(fen*1*60+miao*1);
+		}
+		console.log(time);
+		setInterval(function(){
+			for (var i = 0; i < time.length; i++) {
+				if(parseInt(audio.currentTime)!=0){
+					if(parseInt(audio.currentTime)==time[i]){
+						$("#text").css({"transition":"all 0.5s linear"});
+						$('#text').css("transform","translateY("+(i-2)*(-60)+"px)");
+						$("#text li").css({"color":"black"}).eq(i).css({"color":"green"});
+					}
+				}
+			}
+		},1000)
 });
+
 </script>
-
-
 </body>
 </html>

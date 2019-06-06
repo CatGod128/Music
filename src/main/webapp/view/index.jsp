@@ -28,9 +28,6 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
     <!--顶部bar 开始-->
     <div class="nav_topbar">
         <div class="nav_topbar_cont">
-            <ul>
-            	<li><a href="">我的主页</a></li><li><a href="">个人中心</a></li><li><a href="">帮助中心</a></li>
-            </ul>
             <!--用户登录-->
               <c:choose>
               <c:when test="${sessionScope.userName ==null}">
@@ -46,7 +43,7 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
                     </form>
                     <p> 
                         <a href="${pageContext.request.contextPath}/view/register.jsp"><i class="sign"></i>注册</a> | 
-                        <a href="view/findPwd.jsp"><i class="lock"></i>忘记密码？</a>
+                        <a href="${pageContext.request.contextPath}/view/findPwd.jsp"><i class="lock"></i>忘记密码？</a>
                     </p>
                 </div>
             </div>
@@ -84,11 +81,10 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
             <div class="user_info">
             <c:choose>
               <c:when test="${sessionScope.userName !=null}">
-              <div class="user_photo"><a href=""><img src="${pageContext.request.contextPath}/static/images/user_photo.png" /></a></div>
+              <div class="user_photo"><a href="MyInfo"><img src="${pageContext.request.contextPath}/static/images/user_photo.png" /></a></div>
                 <a class="nikeName" href="logout">${sessionScope.userName}</a>
-                <a class="user_info_list" href=""><span>8</span><span>歌单</span></a>
-                <a class="user_info_list" href=""><span>3</span><span>收听</span></a>
-                <a class="user_info_list" href=""><span>0</span><span>听众</span></a>
+            <!--     <a class="user_info_list" href=""><span>8</span><span>收藏</span></a>
+                <a class="user_info_list" href=""><span>3</span><span>个人中心</span></a> -->
               </c:when>
             </c:choose>	
             </div>

@@ -80,6 +80,8 @@ public class MusicController {
 		String param=req.getParameter("id");
 		int id=Integer.parseInt(param);
 		music=musicService.getInfo(id);
+		List<String> Stylelist=musicService.getStylelist();
+		model.addAttribute("stylelist", Stylelist);
 		model.addAttribute("music",music);
 		return "back/MusicInfo";
 	 }

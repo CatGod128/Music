@@ -32,7 +32,7 @@
 				<div class="nav-tit">
 					<a href="listStyle" target="main">
 						<img src="../static/images/job-msg.png" alt="">
-						<span>分类管理</span>
+						<span>曲风管理</span>
 					</a>
 				</div>
 				<div class="nav-tit">
@@ -42,7 +42,7 @@
 					</a>
 				</div>
 				<div class="nav-tit">
-					<a href="StudentPubMed.html" target="main">
+					<a href="listUser.jsp" target="main">
 						<img src="../static/images/PubMed-msg.png" alt="">
 						<span>用户管理</span>
 					</a>

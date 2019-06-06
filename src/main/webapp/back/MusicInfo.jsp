@@ -33,10 +33,10 @@
                </c:when>
             </c:choose>	</td></tr>
         <tr align="center"><td>曲风</td> <td>
-            <p><input id="checkbox1" type="checkbox" name="style" value="流行"><label>流行</label>
-            <input id="checkbox2" type="checkbox" name="style" value="摇滚"><label>摇滚</label></p>
-            <p><input id="checkbox3" type="checkbox" name="style" value="安静"><label>安静</label>
-            <input id="checkbox4" type="checkbox" name="style" value="古典"><label>古典</label></p></td></tr>
+        <c:forEach  items="${stylelist}" var="stylename" varStatus="status">
+        <p><input id="checkbox${status.index+1}" type="checkbox" name="style" value="${stylename}"><label>${stylename}</label>
+        </c:forEach>
+        <td></tr>
         <tr align="center"><td>发布时间</td> <td><input type="date" name="MTime" value="${music.mtime}"/></td></tr>
         <tr align="center"><td>下载量</td> <td><input  name="DCount" value="${music.DCount}" /></td></tr>
         <tr align="center"><td>收听量</td> <td><input  name="PCount" value="${music.PCount}" /></td></tr>

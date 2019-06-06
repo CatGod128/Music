@@ -49,7 +49,7 @@ public class EmailUtil {
 	        properties.setProperty("mail.smtp.ssl.enable","true");
 	        mailSender.setJavaMailProperties(properties);	     
 	        MimeMessage message = mailSender.createMimeMessage();
-	        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true,"UTF-8");
 	        helper.setFrom("1375047916@qq.com");
 	        helper.setTo(to);
 	        helper.setSubject(subject);

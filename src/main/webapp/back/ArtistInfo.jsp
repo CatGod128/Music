@@ -25,7 +25,7 @@
         </tr>
         <tr align="center">
             <td><input id="Aname" name="Aname" value="${artist.AName}" readonly="readonly"/></td>
-            <td> <img id="img0"  name="123"alt="" src="${artist.AIPath}">
+            <td> <img id="img0"  name="123" alt="" src="${artist.AIPath}">
             <input type="file" name="AIFile" id="file0" style="opacity:0;width:50px;" /></td>
             <td><c:choose>
                  <c:when test="${artist.sex==0}"> 

@@ -30,6 +30,7 @@ public class myWebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("UploadFile/**").addResourceLocations("file:D:/Program/eclipsemars/Music/UploadFile/");
+        registry.addResourceHandler("view/UploadFile/**").addResourceLocations("file:D:/Program/eclipsemars/Music/UploadFile/");
         registry.addResourceHandler("back/UploadFile/**").addResourceLocations("file:D:/Program/eclipsemars/Music/UploadFile/");
     }
 

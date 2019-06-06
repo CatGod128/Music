@@ -148,4 +148,6 @@ public interface MusicMapper {
 	 * @return
 	 */
 	int updateStyle(List<Style> style);
+
+	List<String> getStylelist();
 }

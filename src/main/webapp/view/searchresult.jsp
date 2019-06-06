@@ -191,7 +191,7 @@ color: #FFF;
               <c:forEach items="${result}" var="music" varStatus="status">
                  <tr onclick="play(${music.id})">
                  <td style="width:50px">${status.index+1}</td> 
-                 <td class="w1"><a href="getInfo?id=${music.id}">${music.MName}</a></td>
+                 <td class="w1"><a href="getInfo?id=${music.id}" target="blank">${music.MName}</a></td>
                  <td></td>  
                  <td>${music.AName}</td>
                  </tr>
