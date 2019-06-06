@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Music.back.Mapper.StyleMapper">
+<!-- 歌手列表 -->
+<select id="listStyle"  resultType="String">
+ select Sname from style 
+</select>
+<!-- 根据名称获取获取ID -->
+<select id="getIdBySname" parameterType="String" resultType="int">
+  select ifnull ((select id from style where Sname=#{name}),0)
+</select>
+<!-- 获取曲风所有的歌曲 -->
+<select id="getStyle_M" parameterType="int" resultType="MusicPojo">
+   	SELECT a.MName,b.AName FROM musics a
+	LEFT JOIN artist b ON a.Aid=b.id WHERE a.id=any(select m_id from style_music where s_id=#{id}) 
+</select>
+<!-- 获取除此曲风之外的歌曲 -->
+<select id="getOther" parameterType="int" resultType="MusicPojo">
+   	SELECT a.MName,b.AName FROM musics a
+	LEFT JOIN artist b ON a.Aid=b.id WHERE a.id not in(select m_id from style_music where s_id=#{id}) 
+</select>
+<!-- 添加新的曲风 -->
+<insert id="saveStyle" parameterType="String">
+insert into style (Sname) value(#{name})
+</insert>
+</mapper>
