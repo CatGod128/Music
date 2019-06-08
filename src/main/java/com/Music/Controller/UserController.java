@@ -135,13 +135,28 @@ public class UserController {
 		 * @param id
 		 * @return
 		 */
-		@RequestMapping("*/Collect")
+		@RequestMapping("Collect")
 		@ResponseBody
-		public String Collect(int id){
-			String msg="收藏成功 ";
-			Map<String,Object> map=new HashMap();	
-			map.put("msg", msg);
-			return msg;
+		public int Collect(int m_id,HttpServletRequest req){
+			HttpSession session=req.getSession();
+			int u_id=(int) session.getAttribute("userId");
+			System.out.println(m_id);
+			int flag=US.Collect(m_id,u_id);
+			return flag;
+		}
+		/**
+		 * 取消收藏
+		 * @param id
+		 * @return
+		 */
+		@RequestMapping("CancelCollect")
+		@ResponseBody
+		public int CancelCollect(int m_id,HttpServletRequest req){
+			int flag=US.deleteConllect(m_id, req);
+			if(flag>0){
+				flag=0;
+			}
+			return flag;
 		}
 		/**
 		 * 个人中心

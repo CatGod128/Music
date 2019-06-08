@@ -22,6 +22,10 @@ SELECT a.MName,a.MPath,b.AName FROM musics a
 <select id="getIDByName" parameterType="String" resultType="int">
 select id from user where userName=#{name}
 </select>
+<!-- 收藏歌曲 -->
+<insert id="Collect" parameterType="int">
+ insert into collect (m_id,u_id) values(#{id},#{u_id})
+</insert>
 <!-- 获取收藏歌曲 -->
 <select id="CollectMusic" parameterType="int" resultType="MusicPojo">
   SELECT a.id,a.MName,a.PCount,a.DCount,b.AName FROM musics a

@@ -5,6 +5,19 @@
 <!-- 评论展示 -->
 <select id="showCommands" parameterType="int" resultType="ArtShowCommentsBean">
   select a.*,b.img,b.username from command a 
-  left join user b on a.user_id=b.id where a.show_id=#{id}
+  left join user b on a.user_id=b.id where a.show_id=#{id} ORDER BY give_like desc
 </select>
+<!-- 添加评论 -->
+<insert id="saveCommand" parameterType="ArtShowComments">
+insert into command (show_id,user_id,content,create_time,state) 
+values(#{showId},#{userId},#{content},#{createTime},#{state})
+</insert>
+<!-- 点赞 -->
+<update id="addlike" parameterType="int">
+ update command set give_like=#{num} where id=#{id} 
+</update>
+<!-- 删除评论 -->
+<delete id="deleteCommand" parameterType="int">
+ delete from command where id=#{id}
+</delete>
 </mapper>

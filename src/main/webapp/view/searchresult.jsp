@@ -105,9 +105,9 @@ color: #FFF;
               <c:when test="${sessionScope.userName !=null}">
               <div class="user_photo"><a href=""><img src="${pageContext.request.contextPath}/static/images/user_photo.png" /></a></div>
                 <a class="nikeName" href="">${sessionScope.userName}</a>
-                <a class="user_info_list" href=""><span>8</span><span>歌单</span></a>
-                <a class="user_info_list" href=""><span>3</span><span>收听</span></a>
-                <a class="user_info_list" href=""><span>0</span><span>听众</span></a>
+                <a class="user_info_list" href=""><span></span><span></span></a>
+                <a class="user_info_list" href=""><span></span><span></span></a>
+                <a class="user_info_list" href=""><span></span><span></span></a>
               </c:when>
             </c:choose>	
             </div>
@@ -189,11 +189,11 @@ color: #FFF;
              <table>
              <tbody>
               <c:forEach items="${result}" var="music" varStatus="status">
-                 <tr onclick="play(${music.id})">
+                 <tr>
                  <td style="width:50px">${status.index+1}</td> 
                  <td class="w1"><a href="getInfo?id=${music.id}" target="blank">${music.MName}</a></td>
                  <td></td>  
-                 <td>${music.AName}</td>
+                 <td onclick="play(${music.id})">${music.AName}</td>
                  </tr>
                 </c:forEach> 
              </tbody>

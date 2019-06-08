@@ -26,4 +26,8 @@ public interface UserMapper {
 
 	int deleteConllect(@Param("id")int id,@Param("u_id")int u_id);
 
+	int Collect(@Param("id")int id, @Param("u_id")int u_id);
+
+	int CancelCollect(@Param("id")int id, @Param("u_id")int u_id);
+
 }

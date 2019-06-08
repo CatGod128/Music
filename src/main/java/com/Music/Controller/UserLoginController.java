@@ -51,6 +51,7 @@ public class UserLoginController {
 	    	String userName=UserLS.getNameById(id);
 	    	HttpSession session=re.getSession();
 	    	session.setAttribute("userName",userName);
+	    	session.setAttribute("userId", id);
 	    }
 		List<MusicPojo> New=IS.queryNew();
 		//最热推荐

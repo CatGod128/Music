@@ -60,4 +60,11 @@ public class UserService {
 		int u_id=UM.getIDByName(name);
 		return UM.deleteConllect(id,u_id);
 	}
+	public int Collect(int id, int u_id) {
+		return UM.Collect(id,u_id);
+	}
+	public int CancelCollect(int id, int u_id) {
+		// TODO Auto-generated method stub
+		return UM.CancelCollect(id,u_id);
+	}
 }

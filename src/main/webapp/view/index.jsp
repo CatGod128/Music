@@ -68,7 +68,7 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
                 	<a href=""><span>音乐馆</span><span>音乐馆</span></a>
                 </li>
                 <li>
-                	<a href="?cat=6"><span>MV</span><span>MV</span></a>
+                	<a href="?cat=6"><span>曲风</span><span>曲风</span></a>
                 </li>
                 <li>
                 	<a href="?cat=7"><span>我的音乐</span><span>我的音乐</span></a>
@@ -107,8 +107,8 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
                             <a href="?cat=12">专辑</a><a href="?cat=13">电台</a>
                         </p>
                         <p>
-                        	<a href="?cat=6">MV推荐</a><a href="?cat=6">MV库</a>
-                            <a href="?cat=6">MV专题</a><a href="?cat=6">音乐现场</a>
+                        	<a href="?cat=6">流行</a><a href="?cat=6">摇滚</a>
+                            <a href="?cat=6">安静</a><a href="?cat=6">民谣</a>
                         </p>
                         <p>
                         	<a href="?cat=7">主页</a><a href="?cat=7">歌单</a>
