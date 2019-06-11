@@ -45,7 +45,7 @@
 			<div class="row form-group">
 				<label class="control-label col-lg-1">歌词文件</label>
 				<div class="col-lg-5 col-md-6">
-                    <input id="Llefile" type="file" style="display:none"name="Lfile">
+                    <input id="Llefile" type="file" style="display:none"name="Lfile" onchange="checkLrc()">
 					<input id="LFile" class="form-control"  type="text" />
 				    <a class="btn" onclick="$('input[id=Llefile]').click();">选择文件</a>
 				</div>
@@ -142,7 +142,27 @@
 	filesize = filesize / 1048576; //size in mb 
     document.getElementById("size").value=filesize.toFixed(2)+"MB";//js原始写法
     document.getElementById("size").setAttribute("readOnly",'true');
+    checkMp3();
     }
+    function checkMp3(){
+    	 var mp3_id =$('#Mlefile').val();//根据id得到值
+    	 var index= mp3_id.indexOf("."); //（考虑严谨用lastIndexOf(".")得到）得到"."在第几位
+    	 mp3_id=mp3_id.substring(index); //截断"."之前的，得到后缀
+    	     if(mp3_id!=".mp3"&&mp3_id!=".wav"&&mp3_id!=".midi"&&mp3_id!=".cda"){ //根据后缀，判断是否符合视频格式
+    	         alert("不是指定音频格式,重新选择"); 
+    	       $('#Mlefile').val("");   // 不符合，就清除，重新选择
+    	       $('#size').val("文件大小");
+    	     }
+    	}
+    function checkLrc(){
+    	 var mp3_id =$('#Llefile').val();//根据id得到值
+    	 var index= mp3_id.indexOf("."); 
+    	 mp3_id=mp3_id.substring(index); //截断"."之前的，得到后缀
+    	     if(mp3_id!=".lrc"){ //根据后缀，判断是否符合视频格式
+    	         alert("不是指定歌词文件格式,重新选择"); 
+    	       $('#Llefile').val("");   // 不符合，就清除，重新选择
+    	     }
+    	}
 	$(function () {
         //0.初始化fileinput
         var oFileInput = new FileInput();
@@ -187,7 +207,6 @@
                    showZoom:false
                 }
             });
-
             //导入文件上传完成之后的事件
             $("#Mfiles").on("fileuploaded", function (event, data, previewId, index) {
                 alert(data.response.code);

@@ -1,6 +1,5 @@
 package com.Music.Bean;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class User {

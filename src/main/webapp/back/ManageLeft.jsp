@@ -35,11 +35,17 @@
 						<span>曲风管理</span>
 					</a>
 				</div>
-				<div class="nav-tit">
-					<a href="ShowComand" target="main">
+				<div class="nav-tit" id="Command">
+					<a>
 					<img src="../static/images/job-change.png" alt="">
 					<span>评论管理</span>
 					</a>
+				</div>
+				<div class="personal-list" id="Command-child">
+					<ul>
+						<li><a href="MusicCommand.jsp" target="main">歌曲评论</a></li>
+						<li><a href="UserCommand.jsp" target="main">用户评论</a></li>
+					</ul>
 				</div>
 				<div class="nav-tit">
 					<a href="listUser.jsp" target="main">
@@ -61,10 +67,10 @@
 				})
 			});
 			$(document).ready(function(){
-				$('#artist').on('click',function(){
-					$('#artist-child').fadeToggle(300);
+				$('#Command').on('click',function(){
+					$('#Command-child').fadeToggle(300);
 				});
-				let aLi = $('#artist-child li');
+				let aLi = $('#Command-child li');
 				aLi.on('click',function(){
 					$(this).addClass('active').siblings('li').removeClass('active');
 				})

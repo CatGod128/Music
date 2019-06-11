@@ -1,7 +1,5 @@
 package com.Music.Bean;
 
-import javax.xml.crypto.Data;
-
 public class Artist {
     private int id;
     private String AName;   //歌手姓名

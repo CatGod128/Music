@@ -17,11 +17,12 @@
 <div id="style" role="navigation">
 <ul id="ul" class="nav nav-pills">
 	 <c:forEach items="${stylelist}" var="stylename">
-    <li><a href="showstyle_music?sname=${stylename}">${stylename}</a></li>
+    <li><a href="showstyle?sname=${stylename}" target="content">${stylename}</a></li>
    </c:forEach>
    </ul>
 </div>
 <hr>
+<iframe name="content" noresize="noresize" scrolling="no" width=100% height="500px"></iframe>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
@@ -32,7 +33,7 @@ function saveStyle(){
 		  type : 'get',
 	      url : "addStyle?name="+name+"",
 	success:function(){	
-		$("#ul").append(" <li><a href='showstyle_music?sname="+name+"'>"+name+"</a></li>"); 
+		$("#ul").append(" <li><a href='showstyle?sname="+name+"' target='content'>"+name+"</a></li>"); 
 	}});}
 </script>
 </html>

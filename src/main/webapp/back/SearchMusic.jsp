@@ -65,7 +65,8 @@
 <script>
 	function query() {
 		var query = $("#text").val();
-		$(document).ready(function() {
+		if(query!=null && query!=""){
+			$(document).ready(function() {
 			$('#table').dataTable({
 				'ajax' : {
 					'url' : 'query',
@@ -113,7 +114,10 @@
 				                		},
 				              ],
 			});
-		});
+		});}else{
+			alert("请输入关键字");
+		}
+		
 	}
 	function deleteThisRowPapser(id){
 		

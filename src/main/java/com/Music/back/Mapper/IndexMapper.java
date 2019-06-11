@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.Music.Bean.Music;
 import com.Music.Bean.MusicPojo;
+import com.Music.Bean.Style;
 
 /**
  * 处理首页
@@ -32,5 +33,12 @@ public interface IndexMapper {
 	List<MusicPojo> queryTop();
 
 	Music getMusicById(@Param("id")int id);
+
+	List<String> getStyle();
+
+	int getIdByStyle(String style);
+
+	List<MusicPojo> getMusicByStyle(int s_id);
+
 
 }

@@ -319,7 +319,7 @@ textarea {
 				<img class="collectimg" id="${music.id}"src="${pageContext.request.contextPath}/static/img/collect.png">
 			</div>
 			<div class="singerN">
-				<span>歌手：</span><a href="" target="blank">${music.aname}</a>
+				<span>歌手：</span><a href="query?query=${music.aname}" target="blank">${music.aname}</a>
 			</div>
 			<div id="lrc">
 				<ul id="text" style="transform: translateY(0px);"></ul>
@@ -515,11 +515,14 @@ textarea {
 		});
 	</script>
 	<script type="text/javascript">
+	var userName="<%=session.getAttribute("userName")%>";
 	$(function() {
 		var status = true;
 		$(".collectimg").click(function() {
-			var id=this.id;
-		
+			if(userName==null){
+				alert("未登录，请先登录");
+			}else{
+			var id=this.id;	
 			if(status) {
 				$(this).attr('src',"${pageContext.request.contextPath}/static/img/collected.png");
 				var url="Collect";
@@ -530,6 +533,7 @@ textarea {
 				var url="CancelCollect";
 				collected(id,url);
 				status = true;
+			}
 			}
 		});
 	})
@@ -559,6 +563,9 @@ textarea {
 				queryComment();
 		});
 		function Comment(){
+			if(userName==null){
+				alert("未登录，请先登录");
+			}else{
 			var id = ${music.id};
 			var content = $("#Commandcontent").val();
 			$.ajax({
@@ -580,7 +587,7 @@ textarea {
 			error : function() {
 					console.log('评论失败');
 				}
-			})
+			})}
 		}
 		$(function(){  
 		    $('body').on('click','.like',function(){
@@ -645,6 +652,7 @@ textarea {
 					        $("#scf-3").innerHTML="多少人";
 							$.each(data,function(i, element) {
 								var id=element.id;
+								var state=element.state;
 								var u_id=element.userId;
 								var nickname = element.userName;
 								var content = element.content;
@@ -653,13 +661,24 @@ textarea {
 						    	var like=element.giveLike;
 						    	var userID=<%=session.getAttribute("userId")%>;
 						    	if(u_id==userID){
-						    		var info = $('<div class="OtherCommand"><div class="head"><img src="'+imgpath+'"></div><div class="cntwrap">'
-											+'<div class="cnt"><a class="s-fc7">'
-											+ nickname+'</a>:'
-											+ content
-											+ '</div><div class="rp"><div class="timescf-4">'
-											+time+'</div></div><a class="like" id="'+id+'"><img class="zan" src="../static/img/like.png">('
-											+like+')</a><span class="sep">|</span><a class="delete" id="'+id+'">删除</a></div></div>');	
+						    		if(state==1){
+						    			var info = $('<div class="OtherCommand"><div class="head"><img src="'+imgpath+'"></div><div class="cntwrap">'
+												+'<div class="cnt"><a class="s-fc7">'
+												+ nickname+'</a>:'
+												+ content
+												+ '</div><div class="rp"><div class="timescf-4">'
+												+time+'</div></div><a class="like" id="'+id+'"><img class="zan" src="../static/img/like.png">('
+												+like+')</a><span class="sep">|</span><a class="delete" id="'+id+'">删除</a></div></div>');
+						    		}else{
+						    			var info = $('<div class="OtherCommand"><div class="head"><img src="'+imgpath+'"></div><div class="cntwrap">'
+												+'<div class="cnt"><a class="s-fc7">'
+												+ nickname+'</a>:'
+												+ "<center>该评论已被管理员删除</center>"
+												+ '</div><div class="rp"><div class="timescf-4">'
+												+time+'</div></div><a class="like" id="'+id+'"><img class="zan" src="../static/img/like.png">('
+												+like+')</a></div></div>');	
+						    		}
+						    		
 						    	}else{
 								var info = $('<div class="OtherCommand"><div class="head"><img src="'+imgpath+'"></div><div class="cntwrap">'
 								+'<div class="cnt"><a class="s-fc7">'

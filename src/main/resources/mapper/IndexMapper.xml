@@ -17,6 +17,10 @@ select a.id,a.MName,a.MPath,a.MIPath,b.AName from musics a
 select a.id,a.MName,a.MPath,a.MIPath,b.AName from musics a 
 		left join artist b on a.Aid=b.id ORDER BY (DCount+PCount) DESC LIMIT 9
 </select>
+<!-- 曲风列表 -->
+<select id="getStyle" resultType="String">
+  select Sname from style 
+</select>
 <!-- 搜索框 -->
 <select id="queryMusicById" parameterType="int" resultType="Music">
 select a.id,a.MName,a.MPath,b.AName from musics a 
@@ -26,5 +30,13 @@ select a.id,a.MName,a.MPath,b.AName from musics a
 <select id="getMusicById" parameterType="int" resultType="Music">
 select a.id,a.MName,a.LPath,a.MIPath,a.MPath,a.Aid,b.AName from musics a left join 
 artist b on a.Aid=b.id where a.id=#{id}
+</select>
+<!-- 根据曲风获取歌曲 -->
+<select id="getMusicByStyle" parameterType="int" resultType="MusicPojo">
+select a.id,a.MName,a.MPath,b.AName from musics a 
+		left join artist b on a.Aid=b.id where a.id=any(select m_id from style_music where s_id=#{id})
+</select>
+<select id="getIdByStyle" parameterType="String" resultType="int">
+  select id from style where Sname=#{style}
 </select>
 </mapper>

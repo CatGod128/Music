@@ -39,6 +39,36 @@ public class StyleService {
 		// TODO Auto-generated method stub
 		return SM.saveStyle(name);
 	}
+
+
+	public int getIdByname(String sname) {
+		return SM.getIdBySname(sname);
+	}
+
+
+	public int AlterStyleMusic(int styleId, String idStr) {
+		//对Id串进行处理
+		String[] ids=idStr.split(",");
+		int[] m_ids=new int[ids.length-1];
+		for(int i=1;i<ids.length;i++){
+			m_ids[i-1]=Integer.parseInt(ids[i]);
+		}
+		//判断ID是添加还是移除
+		int fID=m_ids[0];
+		int id=SM.IsExit(styleId,fID);
+		if(id>0){
+			//存在则移除
+			for(int m_id:m_ids){
+				SM.deleteStyleMusic(styleId,m_id);
+			}	
+		}else{
+			//不存在则添加
+			for(int m_id:m_ids){
+				SM.saveStyleMusic(styleId,m_id);
+			}
+		}
+	    return 1;
+	}
   
 	
 }

@@ -47,9 +47,6 @@ color: #FFF;
     <!--顶部bar 开始-->
     <div class="nav_topbar">
         <div class="nav_topbar_cont">
-            <ul>
-            	<li><a href="">我的主页</a></li><li><a href="">个人中心</a></li><li><a href="">帮助中心</a></li>
-            </ul>
             <!--用户登录-->
               <c:choose>
               <c:when test="${sessionScope.userName ==null}">
@@ -80,7 +77,7 @@ color: #FFF;
     <div id="headCont">
         <div class="main_nav">
 			<!--LOGO-->
-            <div class="logo"><a href=""><img src="${pageContext.request.contextPath}/static/images/logo.png" width="60" height="60" alt="logo"></a></div>
+            <div class="logo"><a href="/"><img src="${pageContext.request.contextPath}/static/images/logo.png" width="60" height="60" alt="logo"></a></div>
             <div class="logoName">
             	<a href=""><img src="${pageContext.request.contextPath}/static/images/logoName.png" width="120" height="60" alt="logoName"></a>
             </div>
@@ -90,7 +87,7 @@ color: #FFF;
                 	<a href=""><span>音乐馆</span><span>音乐馆</span></a>
                 </li>
                 <li>
-                	<a href="?cat=6"><span>MV</span><span>MV</span></a>
+                	<a href="?cat=6"><span>曲风</span><span>曲风</span></a>
                 </li>
                 <li>
                 	<a href="?cat=7"><span>我的音乐</span><span>我的音乐</span></a>
@@ -130,8 +127,9 @@ color: #FFF;
                             <a href="?cat=12">专辑</a><a href="?cat=13">电台</a>
                         </p>
                         <p>
-                        	<a href="?cat=6">MV推荐</a><a href="?cat=6">MV库</a>
-                            <a href="?cat=6">MV专题</a><a href="?cat=6">音乐现场</a>
+                        <c:forEach items="${Style}" var="style">
+                        	<a href="getStyleMusic?style=${style}">${style}</a>
+                            </c:forEach>
                         </p>
                         <p>
                         	<a href="?cat=7">主页</a><a href="?cat=7">歌单</a>
@@ -310,7 +308,7 @@ color: #FFF;
  
   
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.js"></script>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/index.js"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/index.js"></script>
 <!--播放器js-->
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/player.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/playlist.js"></script>

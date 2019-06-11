@@ -12,16 +12,28 @@
 </select>
 <!-- 获取曲风所有的歌曲 -->
 <select id="getStyle_M" parameterType="int" resultType="MusicPojo">
-   	SELECT a.MName,b.AName FROM musics a
+   	SELECT a.id,a.MName,b.AName FROM musics a
 	LEFT JOIN artist b ON a.Aid=b.id WHERE a.id=any(select m_id from style_music where s_id=#{id}) 
 </select>
 <!-- 获取除此曲风之外的歌曲 -->
 <select id="getOther" parameterType="int" resultType="MusicPojo">
-   	SELECT a.MName,b.AName FROM musics a
+   	SELECT a.id,a.MName,b.AName FROM musics a
 	LEFT JOIN artist b ON a.Aid=b.id WHERE a.id not in(select m_id from style_music where s_id=#{id}) 
 </select>
 <!-- 添加新的曲风 -->
 <insert id="saveStyle" parameterType="String">
 insert into style (Sname) value(#{name})
+</insert>
+<!-- 判断是否是该曲风 -->
+<select id="IsExit" parameterType="int" resultType="int">
+   select ifnull((select id from style_music where s_id=#{styleId} and m_id=#{fID}),0)
+</select>
+<!-- 从此曲风中删除该歌曲 -->
+<delete id="deleteStyleMusic" parameterType="int">
+ delete from style_music where m_id=#{m_id} and s_id=#{styleId}
+</delete>
+<!-- 添加歌曲到曲风 -->
+<insert id="saveStyleMusic"  parameterType="int">
+ insert into style_music (m_id,s_id) values(#{m_id},#{styleId})
 </insert>
 </mapper>

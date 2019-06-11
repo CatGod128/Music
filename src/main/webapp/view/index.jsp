@@ -13,11 +13,27 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/player.css" />
 <link rel="Shortcut Icon" href="${pageContext.request.contextPath}/static/images/favicon.ico" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/modernizr.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/JsonpAjax.js"></script>
 <script>
 if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){ 
 	window.location="error/error.html";
 }
 </script>
+<style type="text/css">
+#word {
+	position: absolute;
+	z-index: 99;
+	width: 145px;
+	height: auto;
+	background-color: white;
+	border: black solid 1px;
+	display: none;
+}
+.error {
+	color: gray;
+	cursor: pointer; /*鼠标放上变成小手*/
+}
+</style>
 </head>
 <body>
 
@@ -107,8 +123,9 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
                             <a href="?cat=12">专辑</a><a href="?cat=13">电台</a>
                         </p>
                         <p>
-                        	<a href="?cat=6">流行</a><a href="?cat=6">摇滚</a>
-                            <a href="?cat=6">安静</a><a href="?cat=6">民谣</a>
+                        <c:forEach items="${Style}" var="style">
+                        	<a href="getStyleMusic?style=${style}">${style}</a>
+                            </c:forEach>
                         </p>
                         <p>
                         	<a href="?cat=7">主页</a><a href="?cat=7">歌单</a>
@@ -128,25 +145,7 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
 							<input type="text" class="search" value="搜索好音乐" name="query" id="s" />
 						</form>
                         <!--搜索下拉菜单-->
-                        <div class="hot_search" id="hot_search">
-                            <div>
-                                <span><a href="javascript:;">陈奕迅</a><font>171万</font></span>
-                                <div>
-                                    <span><a href="javascript:;">周杰伦</a><font>164万</font></span>
-                                    <div>
-                                        <span><a href="javascript:;">G.E.M. 邓紫棋</a><font>107万</font></span>
-                                        <div>
-                                            <span><a href="javascript:;">泡沫</a><font>90万</font></span>
-                                            <div>
-                                                <span><a href="javascript:;">林俊杰</a><font>62万</font></span>
-                                                <div>
-                                                    <span><a href="javascript:;">本兮</a><font>57万</font></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>             
+                        <div class="hot_search" id="hot_search">           
                         </div>
                         <!--搜索下拉菜单-->        
                     </div>
@@ -969,6 +968,42 @@ if ((!to3d()) || document.documentMode == 10 || document.documentMode == 11){
 
 </body>
 <script type="text/javascript">
+$(function(){
+	//当键盘键被松开时发送Ajax获取数据
+			$('#s').keyup(function(){
+				var keywords = $(this).val();
+				if (keywords=='') { $('#hot_search').hide(); return };
+				$.ajax({
+					url: 'ajax/tips?tips=' + keywords,
+					dataType: 'json',
+					beforeSend:function(){
+						$('#hot_search').append('<div>正在加载。。。</div>');
+					},
+					success:function(data){
+						$('#hot_search').empty().show();
+						if (data.s=='')
+						{
+							$('#hot_search').append('<div class="error">Not find  "' + keywords + '"</div>');
+						}
+						$.each(data.s, function(){
+							$('#hot_search').append('<span class="click_work"><a>'+ this +'</a></span>');
+						})
+					},
+					error:function(){
+						$('#hot_search').empty().show();
+						$('#hot_search').append('<div class="click_work">Fail "' + keywords + '"</div>');
+					}
+				})
+			})
+	//点击搜索数据复制给搜索框
+			$(document).on('click','.click_work',function(){
+				var word = $(this).text();
+				$('#s').val(word);
+				$('#hot_search').hide();
+				// $('#texe').trigger('click');触发搜索事件
+			})
+
+		})
 function play(id){
 	$.ajax({
 		   type: "POST",

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.Music.Bean.Music;
 import com.Music.Bean.MusicPojo;
+import com.Music.Bean.Style;
 import com.Music.back.Mapper.IndexMapper;
 /**
  * 处理首页业务
@@ -44,5 +45,18 @@ public class IndexService {
 	public Music getMusicById(int id) {
 		
 		return IM.getMusicById(id);
+	}
+
+	/**
+	 * 曲风集合
+	 * @return
+	 */
+	public List<String> queryStyle() {
+		return IM.getStyle();
+	}
+
+	public List<MusicPojo> getMusicByStyle(String style) {
+		int s_id=IM.getIdByStyle(style);
+		return IM.getMusicByStyle(s_id);
 	}
 }

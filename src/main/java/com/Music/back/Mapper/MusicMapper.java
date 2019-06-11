@@ -150,4 +150,6 @@ public interface MusicMapper {
 	int updateStyle(List<Style> style);
 
 	List<String> getStylelist();
+
+	List<MusicPojo> getMusicByStyleId(int id);
 }

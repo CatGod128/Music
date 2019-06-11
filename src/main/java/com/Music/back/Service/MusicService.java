@@ -239,4 +239,9 @@ public List<String> getStylelist() {
 	return QM.getStylelist();
 }
 
+public List<MusicPojo> getMusicByStyle(String style) {
+	int id=QM.getSid(style);
+	return QM.getMusicByStyleId(id);
+}
+
 }
