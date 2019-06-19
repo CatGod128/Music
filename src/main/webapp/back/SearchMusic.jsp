@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="../static/css/style.css">
 <link rel="stylesheet" href="../static/css/font-awesome.min.css">
 <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-
 </head>
 <style type="text/css">
 #word {

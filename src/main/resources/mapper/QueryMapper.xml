@@ -43,6 +43,10 @@
 		select a.*,b.id,b.AName from musics a 
 		left join artist b on a.Aid=b.id where a.id=#{id}	
 	</select>
+	<select id="getMusicByAid" parameterType="int" resultType="Music">
+	select a.*,b.id,b.AName from musics a 
+		left join artist b on a.Aid=b.id where b.id=#{id}
+	</select>
 	<!-- 获取歌手歌曲数量 -->
 	<select id="getNum" parameterType="int" resultType="int">
 	   select Count(*) from musics where Aid=(select Aid from musics where id=#{id})

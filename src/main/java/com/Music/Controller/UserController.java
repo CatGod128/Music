@@ -81,8 +81,10 @@ public class UserController {
 		@RequestMapping("getInfo")
 		public String getInfo(int id,Model model,Music music){
 			music=IS.getMusicById(id);
+			List<Music> songs=musicService.getMusicByAid(music.getAid());
 			List<ArtShowCommentsBean> list=CS.showCommands(id);
 			model.addAttribute("music",music);
+			model.addAttribute("Songs",songs);
 			model.addAttribute("commands",list);
 			return "view/PlayMusic";
 		}
@@ -191,7 +193,6 @@ public class UserController {
 			Map<String,Object> map=new HashMap();
 			String msg="头像上传成功";
 			int success=US.UploadImg(req);
-			System.out.println("收到了");
 			map.put("data", msg);
 			return map;
 		}

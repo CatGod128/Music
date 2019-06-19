@@ -99,7 +99,7 @@ form#payment fieldset fieldset label {
 							src="${pageContext.request.contextPath}/static/images/user_photo.png" />
 					</c:when>
 					<c:when test="${userInfo.img!=null}">
-						<img  id="img0" src="${userInfo.img}" />
+						<img  id="img0" name="touxiang" src="${userInfo.img}" />
 					</c:when>
 				</c:choose>		
 		<form  enctype="multipart/form-data" id="upload"> 
@@ -130,6 +130,13 @@ form#payment fieldset fieldset label {
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.js"></script>
 <script type="text/javascript">
+$("#file0").change(function(){  
+	 var objUrl = getObjectURL(this.files[0]) ;//获取文件信息   
+	  if (objUrl) {  
+	  $("#img0").attr("src", objUrl);  
+	  UploadImg();
+	 }   
+}) ; 
 function UploadImg(){
 	 var Data = new FormData($("#upload")[0]); 
 		    $.ajax({
@@ -143,15 +150,7 @@ function UploadImg(){
 		        	alert(data.data);
 		        }
 		    });
-  }
-
-$("#file0").change(function(){  
-	 var objUrl = getObjectURL(this.files[0]) ;//获取文件信息   
-	  if (objUrl) {  
-	  $("#img0").attr("src", objUrl);  
-	  UploadImg();
-	 }   
-}) ;  
+  } 
 function getObjectURL(file) {  
 	 var url = null;   
 	 if (window.createObjectURL!=undefined) {  

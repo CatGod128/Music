@@ -244,4 +244,9 @@ public List<MusicPojo> getMusicByStyle(String style) {
 	return QM.getMusicByStyleId(id);
 }
 
+public List<Music> getMusicByAid(int aid) {
+	
+	return QM.getMusicByAid(aid);
+}
+
 }

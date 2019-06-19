@@ -8,6 +8,8 @@
 		title : ".audio-title",
 
 		cover : ".audio-cover",
+		
+		lrc : ".audio-lrc",
 
 		autoPlay : false,
 
@@ -85,6 +87,7 @@
 
 		var cover = $(_this.cover),
 			title = $(_this.title),
+			lrc=$(_this.lrc),
 			thisTime = $(_this.timeView.thisTime),
 			countTime = $(_this.timeView.countTime),
 			thisSetbacks = $(_this.setbacks.thisSetbacks),
